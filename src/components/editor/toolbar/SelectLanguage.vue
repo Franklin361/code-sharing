@@ -22,12 +22,15 @@ interface Props {
   list: { value: string, label:string }[],
   placeholder:string
   notFoundLabel:string
+  defaultValue:string
+  onSelectValue: (value:string) => void
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 
 const open = ref(false)
-const value = ref('')
+
+const value = ref(props.defaultValue)
 </script>
 
 <template>
@@ -62,6 +65,7 @@ const value = ref('')
               @select="(ev) => {
                 if (typeof ev.detail.value === 'string') {
                   value = ev.detail.value
+                  onSelectValue(value)
                 }
                 open = false
               }"

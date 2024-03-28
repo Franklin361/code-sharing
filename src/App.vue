@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import NavBar from '@/components/NavBar.vue';
-// import Editor from '@/components/editor/Editor.vue';
+import Editor from '@/components/editor/Editor.vue';
 import ToolBar from '@/components/editor/toolbar/ToolBar.vue';
 import ToolBarBelow from '@/components/editor/toolbar/ToolBarBelow.vue';
 </script>
@@ -16,8 +16,8 @@ import ToolBarBelow from '@/components/editor/toolbar/ToolBarBelow.vue';
     </h1>
 
     <ToolBar />
-    <div class="w-full h-[70dvh] bg-secondary"></div>
-    <!-- <Editor />  -->
+
+    <Editor />
 
     <ToolBarBelow />
   </main>

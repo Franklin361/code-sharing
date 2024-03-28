@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { javascript } from '@codemirror/lang-javascript';
-import { oneDark } from '@codemirror/theme-one-dark';
-import { EditorView } from 'codemirror';
-import { ref, shallowRef } from 'vue';
+import { ref, shallowRef, watch } from 'vue';
 import { Codemirror } from 'vue-codemirror';
+import { EditorView } from 'codemirror';
 
-const code = ref(`console.log('Hello, world!')`)
-const extensions = [javascript(), oneDark]
+import { useCodeStore } from '@/store/mainStore'
+
+import { languages } from '@/config/languages';
+import { themes } from '@/config/themes';
+
+const store = useCodeStore()
+
+const language = ref(Object.entries(languages).find( ([key]) => key === store.language)![1])
+const theme = shallowRef(Object.entries(themes).find( ([key]) => key === store.theme)![1])
 
 const view = shallowRef()
 
@@ -17,26 +22,36 @@ const handleReady = (payload:{
 }) => {
   view.value = payload.view
 }
+
+watch(
+  () => store.theme,
+  () => {
+    theme.value = Object.entries(themes).find( ([key]) => key === store.theme)![1]
+  }
+)
+watch(
+  () => store.language,
+  () => {
+    language.value = Object.entries(languages).find( ([key]) => key === store.language)![1]
+  }
+)
 </script>
 
 <template>
   <codemirror
-    v-model="code"
+    v-model="store.code"
     placeholder="Code goes here..."
-    :style="{ height: '400px'}"
+    :style="{ minHeight: '40dvh'}"
     :autofocus="true"
     :indent-with-tab="true"
     :tab-size="2"
-    :extensions="extensions"
+    :extensions="[language(),theme]"
     @ready="handleReady"
-    @change="console.log('change', $event)"
-    @focus="console.log('focus', $event)"
-    @blur="console.log('blur', $event)"
   />
 </template>
 
 <style>
 .cm-content {
-  font-size: 1.2rem;
+  font-size: 0.9rem;
 }
 </style>
