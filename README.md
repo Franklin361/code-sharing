@@ -14,3 +14,47 @@ The application will allow users to store and share coding snippets
 
 - https://highlightjs.org/demo
 - https://www.npmjs.com/package/monaco-editor
+
+@codemirror/lang-css
+@codemirror/lang-html
+@codemirror/lang-javascript
+@codemirror/lang-json
+@codemirror/lang-markdown
+@codemirror/lang-php
+@codemirror/lang-vue
+@codemirror/language
+@codemirror/lang-xml
+
+https://github.com/codemirror/codemirror5/tree/master/theme
+
+```tsx
+import { javascript } from '@codemirror/lang-javascript'
+export default {
+  language: javascript
+}
+```
+
+```tsx
+export { oneDark } from '@codemirror/theme-one-dark'
+export { materialDark } from 'cm6-theme-material-dark'
+export { nord } from 'cm6-theme-nord'
+export {
+  amy,
+  ayuLight,
+  barf,
+  bespin,
+  birdsOfParadise,
+  boysAndGirls,
+  clouds,
+  cobalt,
+  coolGlow,
+  dracula,
+  espresso,
+  noctisLilac,
+  rosePineDawn,
+  smoothy,
+  solarizedLight,
+  tomorrow
+} from 'thememirror'
+
+```

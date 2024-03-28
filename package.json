@@ -16,6 +16,7 @@
     "clsx": "^2.1.0",
     "codemirror": "^6.0.1",
     "lucide-vue-next": "^0.360.0",
+    "pinia": "^2.1.7",
     "radix-vue": "^1.5.3",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
