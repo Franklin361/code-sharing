@@ -1,6 +1,7 @@
 Code Sharing app
 
 https://devchallenges.io/challenge/code-shraing-app-note-code
+https://github.com/surmon-china/vue-codemirror
 
 The application will allow users to store and share coding snippets
 

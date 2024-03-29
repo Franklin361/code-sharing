@@ -1,8 +1,16 @@
 <script setup lang="ts">
+import { defineAsyncComponent } from 'vue';
 import NavBar from '@/components/NavBar.vue';
-import Editor from '@/components/editor/Editor.vue';
 import ToolBar from '@/components/editor/toolbar/ToolBar.vue';
 import ToolBarBelow from '@/components/editor/toolbar/ToolBarBelow.vue';
+import LoadingEditor from '@/components/editor/LoadingEditor.vue';
+import ErrorEditor from '@/components/editor/ErrorEditor.vue';
+
+const Editor = defineAsyncComponent({
+  loader: () => import('@/components/editor/Editor.vue'),
+  loadingComponent: LoadingEditor,
+  errorComponent: ErrorEditor
+})
 </script>
 
 <template>
