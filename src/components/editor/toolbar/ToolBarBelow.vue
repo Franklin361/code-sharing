@@ -2,8 +2,12 @@
 import Button from '@/components/ui/button/Button.vue';
 import { Icon } from '@iconify/vue'
 import { useCodeStore } from '@/store/mainStore'
+import {  useRouter } from 'vue-router';
+import { RouteNames } from '../../../router/main';
 
 const store = useCodeStore()
+
+const router = useRouter()
 
 const handleSave = () => {
   const dataToSave = {
@@ -15,7 +19,7 @@ const handleSave = () => {
 }
 
 const handleShare = () => {
-  console.log('share',store.code)
+  router.push({ name: RouteNames.SHARING_CODE, params:{ code: store.code } })
 }
 </script>
 
