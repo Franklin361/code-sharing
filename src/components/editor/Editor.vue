@@ -1,17 +1,21 @@
 <script setup lang="ts">
-import { ref, shallowRef, watch } from 'vue';
-import { Codemirror } from 'vue-codemirror';
 import { EditorView } from 'codemirror';
+import {  shallowRef, defineEmits } from 'vue';
+import { Codemirror } from 'vue-codemirror';
 
-import { useCodeStore } from '@/store/mainStore'
+interface Props {
+  language: any
+  theme: any
+  disabled?: boolean
+  code: string
+}
 
-import { languages } from '@/config/languages';
-import { themes } from '@/config/themes';
 
-const store = useCodeStore()
+defineProps<Props>()
 
-const language = ref(Object.entries(languages).find( ([key]) => key === store.language)![1])
-const theme = shallowRef(Object.entries(themes).find( ([key]) => key === store.theme)![1])
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string): void
+}>()
 
 const view = shallowRef()
 
@@ -22,24 +26,13 @@ const handleReady = (payload:{
 }) => {
   view.value = payload.view
 }
-
-watch(
-  () => store.theme,
-  () => {
-    theme.value = Object.entries(themes).find( ([key]) => key === store.theme)![1]
-  }
-)
-watch(
-  () => store.language,
-  () => {
-    language.value = Object.entries(languages).find( ([key]) => key === store.language)![1]
-  }
-)
 </script>
 
 <template>
   <codemirror
-    v-model="store.code"
+    :value="code"
+    v-on:change="emit('update:modelValue', $event)"
+    :disabled="disabled"
     placeholder="Code goes here..."
     :style="{ minHeight: '40dvh'}"
     :autofocus="true"

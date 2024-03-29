@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
+import ErrorEditor from '@/components/editor/ErrorEditor.vue';
+import LoadingEditor from '@/components/editor/LoadingEditor.vue';
 import ToolBar from '@/components/editor/toolbar/ToolBar.vue';
 import ToolBarBelow from '@/components/editor/toolbar/ToolBarBelow.vue';
-import LoadingEditor from '@/components/editor/LoadingEditor.vue';
-import ErrorEditor from '@/components/editor/ErrorEditor.vue';
+import { useChangeConfigEditor } from '@/composables/useChangeConfigEditor';
+import { defineAsyncComponent } from 'vue';
+
+const { language, theme, code, updateValue } = useChangeConfigEditor()
 
 const Editor = defineAsyncComponent({
   loader: () => import('@/components/editor/Editor.vue'),
@@ -23,8 +26,14 @@ const Editor = defineAsyncComponent({
 
     <ToolBar />
 
-    <Editor />
+    <Editor
+      :language="language"
+      :theme="theme"
+      :code="code"
+      @update:modelValue="updateValue"
+    />
 
     <ToolBarBelow />
   </main>
 </template>
+z
