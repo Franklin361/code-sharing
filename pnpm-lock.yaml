@@ -74,6 +74,9 @@ dependencies:
   vue-codemirror:
     specifier: ^6.1.1
     version: 6.1.1(codemirror@6.0.1)(vue@3.4.21)
+  vue-router:
+    specifier: '4'
+    version: 4.3.0(vue@3.4.21)
 
 devDependencies:
   '@iconify-json/radix-icons':
@@ -1871,6 +1874,15 @@ packages:
       '@vue/composition-api':
         optional: true
     dependencies:
+      vue: 3.4.21(typescript@5.4.3)
+    dev: false
+
+  /vue-router@4.3.0(vue@3.4.21):
+    resolution: {integrity: sha512-dqUcs8tUeG+ssgWhcPbjHvazML16Oga5w34uCUmsk7i0BcnskoLGwjpa15fqMr2Fa5JgVBrdL2MEgqz6XZ/6IQ==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      '@vue/devtools-api': 6.6.1
       vue: 3.4.21(typescript@5.4.3)
     dev: false
 

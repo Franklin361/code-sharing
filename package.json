@@ -31,7 +31,8 @@
     "tailwindcss-animate": "^1.0.7",
     "thememirror": "^2.0.1",
     "vue": "^3.4.21",
-    "vue-codemirror": "^6.1.1"
+    "vue-codemirror": "^6.1.1",
+    "vue-router": "4"
   },
   "devDependencies": {
     "@iconify-json/radix-icons": "^1.1.14",
