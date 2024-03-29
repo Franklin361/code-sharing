@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ModeToggle from '@/components/ModeToggle.vue';
+import { RouteNames } from '@/router/main';
 </script>
 
 <template>
@@ -8,8 +9,8 @@ import ModeToggle from '@/components/ModeToggle.vue';
   >
     <span>Note Code</span>
     <div class="flex justify-center gap-5">
-      <router-link to="/editor">Editor</router-link>
-      <router-link to="/">Home</router-link>
+      <router-link :to="{ name: RouteNames.EDITOR }">Editor</router-link>
+      <router-link :to="{ name: RouteNames.HOME }">Home</router-link>
     </div>
     <ModeToggle />
   </nav>

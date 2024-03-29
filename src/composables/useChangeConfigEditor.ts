@@ -11,7 +11,6 @@ export function useChangeConfigEditor() {
   const theme = shallowRef(getTheme(store.theme));
 
   const updateValue = (code: string) => {
-    console.log(code);
     store.$patch({
       code,
     });

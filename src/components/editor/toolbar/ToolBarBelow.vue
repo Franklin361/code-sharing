@@ -15,11 +15,20 @@ const handleSave = () => {
     language:store.language,
     theme:store.theme
   }
-  console.log('save', dataToSave)
+  console.log('save', {dataToSave})
 }
 
 const handleShare = () => {
-  router.push({ name: RouteNames.SHARING_CODE, params:{ code: store.code } })
+  router.push({
+    name: RouteNames.SHARING_CODE,
+    params:{
+      code: store.code
+    },
+    query: {
+      lang: store.language,
+      theme: store.theme
+    }
+  })
 }
 </script>
 

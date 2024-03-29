@@ -10,5 +10,8 @@ export function cn(...inputs: ClassValue[]) {
 
 export const getLanguage = (lang: string) =>
   Object.entries(languages).find(([key]) => key === lang)![1];
-export const getTheme = (theme: string) =>
-  Object.entries(themes).find(([key]) => key === theme)![1];
+
+export const getTheme = (theme: string) => {
+  const itemSelected = Object.entries(themes).find(([key]) => key === theme);
+  return itemSelected![1];
+};
