@@ -1,29 +1,23 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button';
 import { Icon } from '@iconify/vue';
+import { useCodeStore } from '@/store/mainStore';
 
-interface Movie {
-  description?: string;
-  id: string;
-  posterImage: string;
-  language: 'javascript' | 'html' | 'css' | 'vue' | 'jsx';
-  theme: 'dracula' | 'one dark' | 'monokai';
-}
-
-const listScreens: Movie[] = [];
+const store = useCodeStore()
+console.log(store.codeList)
 </script>
 
 <template>
   <main class="px-5">
     <section
-      v-if="listScreens && listScreens.length > 0"
+      v-if="store.codeList && store.codeList.length > 0"
       :class="[
         'grid grid-cols-4',
         'gap-8 max-w-5xl mx-auto my-20',
       ]"
     >
       <div
-        v-for="(item) in listScreens"
+        v-for="(item) in store.codeList"
         :key="item.id"
         class="group/card "
       >
@@ -49,25 +43,8 @@ const listScreens: Movie[] = [];
             class="w-full rounded h-[100px] bg-gradient-to-tl from-secondary/50 via-secondary to-secondary/50 opacity-80 group-hover/card:opacity-100 p-2"
           >
             <pre
-              class="text-xs text-wrap line-clamp-5"
-            ><code>const routes: RouteRecordRaw[] = [
-  {
-    path: '/',
-    component: () => import('@/views/HomeView.vue'),
-    name: RouteNames.HOME,
-  },
-  {
-    path: '/editor',
-    component: () => import('@/views/EditorView.vue'),
-    name: RouteNames.EDITOR,
-  },
-  {
-    path: '/sharing/:code',
-    component: () => import('@/views/SharingCodeView.vue'),
-    name: RouteNames.SHARING_CODE,
-  },
-];
-</code></pre>
+              class="text-xs text-nowrap overflow-hidden line-clamp-5 select-none"
+            ><code>{{ item.code }}</code></pre>
           </div>
 
           <label

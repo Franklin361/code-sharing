@@ -5,10 +5,10 @@
 @tailwind utilities;
 
 .toast-success {
-  @apply bg-green-600/20 border border-green-600 text-green-400 text-base py-3;
+  @apply bg-green-600 border border-green-600 text-white text-base py-3;
 }
 .toast-error {
-  @apply bg-rose-600/20 border border-rose-600 text-rose-400 text-base py-3;
+  @apply bg-rose-600 border border-rose-600 text-white text-base py-3;
 }
 
 @layer base {

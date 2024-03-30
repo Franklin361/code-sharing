@@ -13,7 +13,7 @@ import Toaster from '@/components/ui/toast/Toaster.vue'
     >
       <component
         :is="Component"
-        :key="$route.path"
+        :key="$route.fullPath"
       />
     </transition>
   </router-view>

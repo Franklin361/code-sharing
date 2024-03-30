@@ -4,19 +4,31 @@ import Input from '@/components/ui/input/Input.vue';
 import { Icon } from '@iconify/vue'
 import { useCodeStore } from '@/store/mainStore'
 import {  useRouter } from 'vue-router';
-import { RouteNames } from '../../../router/main';
+import { RouteNames } from '@/router/main';
+import { useToast } from '@/components/ui/toast/use-toast';
 
 const store = useCodeStore()
 
 const router = useRouter()
 
+const { toast } = useToast()
+
 const handleSave = () => {
   const dataToSave = {
+    id: crypto.randomUUID(),
     code: store.code,
-    language:store.language,
-    theme:store.theme
+    language: store.language,
+    theme: store.theme,
+    description: store.description
   }
-  console.log('save', {dataToSave})
+
+  store.addCodeToList(dataToSave as any)
+
+  toast({
+    title: 'code saved successfully',
+    duration: 2000,
+      class: 'toast-success'
+  })
 }
 
 const handleShare = () => {

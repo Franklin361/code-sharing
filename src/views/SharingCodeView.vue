@@ -44,6 +44,7 @@ const Editor = defineAsyncComponent({
 <template>
   <main class="px-8 max-w-5xl mx-auto">
     <div
+      v-if="route.query.description"
       class="p-3 text-lg my-5 mt-10 text-white/90 border rounded-md border-white/50 relative custom-animation"
     >
       <span class="text-sm absolute -top-7 left-1 opacity-60"
@@ -56,7 +57,7 @@ const Editor = defineAsyncComponent({
       />
     </div>
 
-    <div class="rounded-lg overflow-hidden">
+    <div class="rounded-lg overflow-hidden my-10">
       <header
         class="bg-secondary rounded-t-lg border border-foreground/20 w-full flex gap-2 justify-start items-center p-2"
       >
