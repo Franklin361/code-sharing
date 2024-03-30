@@ -61,7 +61,7 @@ const Editor = defineAsyncComponent({
           disabled
         />
         <div
-          class="size-full absolute top-0 left-0 bg-transparent flex justify-end p-5 group-hover:translate-y-0 translate-y-full transition-all ease-in-out"
+          class="size-full absolute top-0 left-0 bg-transparent flex justify-end p-2 group-hover:translate-y-0 translate-y-full transition-all ease-in-out"
         >
           <Button
             class="flex justify-center items-center gap-1 group-hover:opacity-100 opacity-0 hover:!opacity-100 delay-100 transition-all"
