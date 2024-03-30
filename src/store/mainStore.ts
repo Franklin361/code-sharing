@@ -6,10 +6,12 @@ export const useCodeStore = defineStore('code-store', () => {
   const language = ref(languagesList[0].value);
   const theme = ref(themesList[0].value);
   const code = ref('');
+  const description = ref('');
 
   return {
     language,
     theme,
     code,
+    description,
   };
 });
