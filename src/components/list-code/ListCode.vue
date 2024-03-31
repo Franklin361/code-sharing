@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Code } from '@/types/code';
-import { defineProps } from 'vue'
 import ItemCode from './ItemCode.vue';
 
 interface Props{

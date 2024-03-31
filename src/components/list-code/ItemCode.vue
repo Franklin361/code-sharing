@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Code } from '@/types/code';
-import { defineProps } from 'vue';
 import MenuOptionsCard from './MenuOptionsCard.vue';
 import { Icon } from '@iconify/vue';
 import Button from '@/components/ui/button/Button.vue';
