@@ -1,17 +1,15 @@
 <script setup lang="ts">
-import Button from '@/components/ui/button/Button.vue';
 import { Code } from '@/types/code';
-import { Icon } from '@iconify/vue';
 import { defineProps } from 'vue';
-import { useShareCode } from '@/composables/useShareCode';
+import MenuOptionsCard from './MenuOptionsCard.vue';
+import { Icon } from '@iconify/vue';
+import Button from '@/components/ui/button/Button.vue';
 
 interface Props{
   item: Code
 }
 
 defineProps<Props>();
-
-const handleShare = useShareCode()
 </script>
 
 <template>
@@ -19,20 +17,18 @@ const handleShare = useShareCode()
     <div
       class="border min-h-[190px] border-foreground/40 w-full p-3 rounded-md flex flex-col gap-5 relative"
     >
-      <div
-        class="group-hover/card:opacity-100 opacity-0 transition-all w-fit delay-200 duration-500 group-hover/card:-translate-y-5 translate-y-5 absolute top-0 right-0 z-20"
-      >
-        <Button
-          variant="default"
-          size="icon"
-          class="!size-8 "
-          @click="handleShare({ ...$props.item as Required<Omit<Code, 'id'>> })"
-        >
-          <Icon
-            icon="material-symbols-light:share-outline"
-            class="size-5"
-          />
-        </Button>
+      <div class=" absolute -top-2 -right-2 z-20">
+        <MenuOptionsCard v-bind="item">
+          <Button
+            class="size-8 p-1 border border-foreground/50 hover:border-foreground !rounded"
+            variant="outline"
+          >
+            <Icon
+              icon="mi:options-vertical"
+              class="size-5"
+            />
+          </Button>
+        </MenuOptionsCard>
       </div>
 
       <div
