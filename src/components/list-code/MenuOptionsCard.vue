@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Icon } from '@iconify/vue';
+;
 import {
 DropdownMenu,
 DropdownMenuContent,
@@ -9,9 +9,12 @@ DropdownMenuSeparator,
 DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useShareCode } from '@/composables/useShareCode';
-import { Code } from '@/types/code';
-import { useRouter } from 'vue-router';
 import { RouteNames } from '@/router/main';
+import { Code } from '@/types/code';
+import { Icon } from '@iconify/vue';
+import { useRouter } from 'vue-router';
+import DeleteAlertDialog from './DeleteAlertDialog.vue';
+
 
 interface Props extends Code {}
 
@@ -58,15 +61,8 @@ const handleGoToEditor = () => {
         <span class="">Edit code</span>
       </DropdownMenuItem>
       <DropdownMenuSeparator class="mt-5" />
-      <DropdownMenuItem
-        class="flex justify-start gap-3 cursor-pointer bg-red-500/40 hover:!bg-red-500/60"
-      >
-        <Icon
-          icon="material-symbols-light:delete-outline"
-          class="size-5 text-foreground"
-        />
-        <span class="">Delete code</span>
-      </DropdownMenuItem>
+
+      <DeleteAlertDialog :id-code="id" />
     </DropdownMenuContent>
   </DropdownMenu>
 </template>
