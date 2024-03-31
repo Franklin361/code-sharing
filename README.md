@@ -3,7 +3,7 @@
 ### Tasks
 
 - **ItemCode.vue**
-  - [ ] Click in the card, send to Editor view to (edit/delete) the card one.
+  - [x] Click in the card, send to Editor view to (edit/delete) the card one.
   - [x] Button Share must share the card code and its information.
 - **EditorView.vue**
   - [ ] Verify if the user wants to edit an existing code (fill out inputs) or create a new code.
