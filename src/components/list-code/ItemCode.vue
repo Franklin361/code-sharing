@@ -3,12 +3,15 @@ import Button from '@/components/ui/button/Button.vue';
 import { Code } from '@/types/code';
 import { Icon } from '@iconify/vue';
 import { defineProps } from 'vue';
+import { useShareCode } from '@/composables/useShareCode';
 
 interface Props{
   item: Code
 }
 
-defineProps<Props>()
+defineProps<Props>();
+
+const handleShare = useShareCode()
 </script>
 
 <template>
@@ -23,6 +26,7 @@ defineProps<Props>()
           variant="default"
           size="icon"
           class="!size-8 "
+          @click="handleShare({ ...$props.item as Required<Omit<Code, 'id'>> })"
         >
           <Icon
             icon="material-symbols-light:share-outline"

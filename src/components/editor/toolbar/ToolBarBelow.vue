@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import Button from '@/components/ui/button/Button.vue';
 import Input from '@/components/ui/input/Input.vue';
-import { Icon } from '@iconify/vue'
-import { useCodeStore } from '@/store/mainStore'
-import {  useRouter } from 'vue-router';
-import { RouteNames } from '@/router/main';
 import { useToast } from '@/components/ui/toast/use-toast';
+import { useShareCode } from '@/composables/useShareCode';
+import { useCodeStore } from '@/store/mainStore';
+import { Icon } from '@iconify/vue';
 
 const store = useCodeStore()
 
-const router = useRouter()
-
 const { toast } = useToast()
+
+const handleShare = useShareCode()
 
 const handleSave = () => {
   const dataToSave = {
@@ -28,20 +27,6 @@ const handleSave = () => {
     title: 'code saved successfully',
     duration: 2000,
       class: 'toast-success'
-  })
-}
-
-const handleShare = () => {
-  router.push({
-    name: RouteNames.SHARING_CODE,
-    params:{
-      code: store.code
-    },
-    query: {
-      lang: store.language,
-      theme: store.theme,
-      description: store.description
-    }
   })
 }
 </script>
@@ -81,7 +66,7 @@ const handleShare = () => {
       </Button>
       <Button
         class="flex justify-center gap-2 items-center"
-        @click="handleShare"
+        @click="handleShare({ ...store  })"
       >
         <Icon
           icon="material-symbols-light:share-outline"
