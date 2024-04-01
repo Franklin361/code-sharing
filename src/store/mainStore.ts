@@ -19,6 +19,13 @@ export const useCodeStore = defineStore('code-store', () => {
     }
   };
 
+  const updateCode = async (code: Code) => {
+    console.log(code);
+    const index = codeList.value?.findIndex((item) => item.id === code.id);
+    console.log({ index });
+    codeList.value![index!] = code;
+  };
+
   return {
     language,
     theme,
@@ -26,5 +33,6 @@ export const useCodeStore = defineStore('code-store', () => {
     description,
     codeList,
     addCodeToList,
+    updateCode,
   };
 });

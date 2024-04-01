@@ -23,16 +23,26 @@ const Editor = defineAsyncComponent({
 
 <template>
   <main class="container mx-auto p-5">
-    <h1 class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-center mb-10">
+    <h1
+      class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-center mb-10"
+    >
       <span>Create & Share </span>
       <span>Your code easily</span>
     </h1>
 
-    <ToolBar />
+    <ToolBar
+      :default-language="item?.language"
+      :default-theme="item?.theme"
+    />
 
-    <Editor :language="language" :theme="theme" :code="code" @update:modelValue="updateValue" />
+    <Editor
+      :language="language"
+      :theme="theme"
+      :code="code"
+      @update:modelValue="updateValue"
+    />
 
-    <ToolBarBelow />
+    <ToolBarBelow :id-code-to-edit="props.item?.id" />
   </main>
 </template>
 z

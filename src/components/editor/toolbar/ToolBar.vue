@@ -2,16 +2,22 @@
 import SelectLanguage from '@/components/editor/toolbar/SelectLanguage.vue'
 import { configLanguages, configThemes } from '@/config'
 
+interface Props {
+  defaultTheme?:string
+  defaultLanguage?:string
+}
+const props = defineProps<Props>()
+console.log(props)
 import { useCodeStore } from '@/store/mainStore'
 const store = useCodeStore()
 
-const onSelectLanguage = (language:string) => {
+const onSelectLanguage = (language: string) => {
   store.$patch({
     language
   })
 }
 
-const onSelectTheme = (theme:string) => {
+const onSelectTheme = (theme: string) => {
   store.$patch({
     theme
   })
@@ -25,11 +31,17 @@ const onSelectTheme = (theme:string) => {
     <span class="font-mono font-semibold">ToolBar</span>
     <div class="flex gap-5 items-center">
       <SelectLanguage
-        v-bind="configLanguages"
+        :list="configLanguages.list"
+        :not-found-label="configLanguages.notFoundLabel"
+        :placeholder="configLanguages.placeholder"
+        :default-value="defaultLanguage ||   configLanguages.defaultValue"
         :on-select-value="onSelectLanguage"
       />
       <SelectLanguage
-        v-bind="configThemes"
+        :list="configThemes.list"
+        :not-found-label="configThemes.notFoundLabel"
+        :placeholder="configThemes.placeholder"
+        :default-value="defaultTheme || configThemes.defaultValue"
         :on-select-value="onSelectTheme"
       />
     </div>
