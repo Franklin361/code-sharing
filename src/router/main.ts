@@ -1,3 +1,4 @@
+import { useCodeStore } from '@/store/mainStore';
 import { RouteRecordRaw, createWebHistory, createRouter } from 'vue-router';
 
 export enum RouteNames {
@@ -16,6 +17,17 @@ const routes: RouteRecordRaw[] = [
     path: '/editor',
     component: () => import('@/views/EditorView.vue'),
     name: RouteNames.EDITOR,
+    props: (to) => {
+      if (to.query?.id) {
+        const store = useCodeStore();
+        const itemSelected = store.codeList?.find(
+          (item) => item.id === to.query.id
+        );
+        return {
+          item: itemSelected,
+        };
+      }
+    },
   },
   {
     path: '/sharing/:code',

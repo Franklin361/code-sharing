@@ -4,9 +4,15 @@ import LoadingEditor from '@/components/editor/LoadingEditor.vue';
 import ToolBar from '@/components/editor/toolbar/ToolBar.vue';
 import ToolBarBelow from '@/components/editor/toolbar/ToolBarBelow.vue';
 import { useChangeConfigEditor } from '@/composables/useChangeConfigEditor';
+import { Code } from '@/types/code';
 import { defineAsyncComponent } from 'vue';
 
-const { language, theme, code, updateValue } = useChangeConfigEditor()
+interface Props {
+  item?: Code
+}
+const props = defineProps<Props>()
+
+const { language, theme, code, updateValue } = useChangeConfigEditor(props.item)
 
 const Editor = defineAsyncComponent({
   loader: () => import('@/components/editor/Editor.vue'),
@@ -17,21 +23,14 @@ const Editor = defineAsyncComponent({
 
 <template>
   <main class="container mx-auto p-5">
-    <h1
-      class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-center mb-10"
-    >
+    <h1 class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-center mb-10">
       <span>Create & Share </span>
       <span>Your code easily</span>
     </h1>
 
     <ToolBar />
 
-    <Editor
-      :language="language"
-      :theme="theme"
-      :code="code"
-      @update:modelValue="updateValue"
-    />
+    <Editor :language="language" :theme="theme" :code="code" @update:modelValue="updateValue" />
 
     <ToolBarBelow />
   </main>

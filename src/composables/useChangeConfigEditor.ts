@@ -1,14 +1,14 @@
 import { getLanguage, getTheme } from '@/lib/utils';
 import { useCodeStore } from '@/store/mainStore';
-import { storeToRefs } from 'pinia';
+import { Code } from '@/types/code';
 import { ref, shallowRef, watch } from 'vue';
 
-export function useChangeConfigEditor() {
+export function useChangeConfigEditor(defaultValues?: Code) {
   const store = useCodeStore();
 
-  const { code } = storeToRefs(store);
-  const language = ref(getLanguage(store.language));
-  const theme = shallowRef(getTheme(store.theme));
+  const code = ref(defaultValues?.code || store.code);
+  const language = ref(getLanguage(defaultValues?.language || store.language));
+  const theme = shallowRef(getTheme(defaultValues?.theme || store.theme));
 
   const updateValue = (code: string) => {
     store.$patch({
