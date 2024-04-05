@@ -12,7 +12,7 @@ interface Props {
 }
 const props = defineProps<Props>()
 
-const { language, theme, code, updateValue } = useChangeConfigEditor(props.item)
+const { language,description, theme, code, updateValue } = useChangeConfigEditor(props.item)
 
 const Editor = defineAsyncComponent({
   loader: () => import('@/components/editor/Editor.vue'),
@@ -42,7 +42,9 @@ const Editor = defineAsyncComponent({
       @update:modelValue="updateValue"
     />
 
-    <ToolBarBelow :id-code-to-edit="props.item?.id" />
+    <ToolBarBelow
+      :id-code-to-edit="props.item?.id"
+      :description="description"
+    />
   </main>
 </template>
-z

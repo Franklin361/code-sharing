@@ -5,8 +5,9 @@ import { ref, shallowRef, watch } from 'vue';
 
 export function useChangeConfigEditor(defaultValues?: Code) {
   const store = useCodeStore();
-
+  // TODO: refactor, probably you don't need to set theses states here, just using the store may be enough
   const code = ref(defaultValues?.code || store.code);
+  const description = ref(defaultValues?.description || store.description);
   const language = ref(getLanguage(defaultValues?.language || store.language));
   const theme = shallowRef(getTheme(defaultValues?.theme || store.theme));
 
@@ -17,6 +18,19 @@ export function useChangeConfigEditor(defaultValues?: Code) {
   };
 
   watch(
+    () => defaultValues,
+    () => {
+      store.$patch({
+        ...defaultValues,
+      });
+    },
+    {
+      once: true,
+      immediate: true,
+    }
+  );
+
+  watch(
     () => store.theme,
     () => (theme.value = getTheme(store.theme))
   );
@@ -25,5 +39,5 @@ export function useChangeConfigEditor(defaultValues?: Code) {
     () => (language.value = getLanguage(store.language))
   );
 
-  return { language, theme, code, updateValue };
+  return { language, description, theme, code, updateValue };
 }

@@ -26,6 +26,13 @@ export const useCodeStore = defineStore('code-store', () => {
     codeList.value![index!] = code;
   };
 
+  const resetCodeStore = () => {
+    language.value = languagesList[0].value;
+    theme.value = themesList[0].value;
+    code.value = '';
+    description.value = '';
+  };
+
   return {
     language,
     theme,
@@ -34,5 +41,6 @@ export const useCodeStore = defineStore('code-store', () => {
     codeList,
     addCodeToList,
     updateCode,
+    resetCodeStore,
   };
 });
