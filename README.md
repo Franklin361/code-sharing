@@ -12,3 +12,9 @@
 - **Business logic**
   - [ ] When share the code, add id_user, to know whom is the code, and show the author.
   - [ ] Save state in local storage and get it when the app starts.
+
+### Tasks refactor
+
+[x] HomeView.vue
+[] Editor.vue
+[] SharingCode.vue

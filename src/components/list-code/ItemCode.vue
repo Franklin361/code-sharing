@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Code } from '@/types/code';
-import MenuOptionsCard from './MenuOptionsCard.vue';
-import { Icon } from '@iconify/vue';
+import MenuOptionsCard from '@/components/list-code/MenuOptionsCard.vue';
 import Button from '@/components/ui/button/Button.vue';
+import { Code } from '@/types/code';
+import { Icon } from '@iconify/vue';
 
 interface Props{
   item: Code
@@ -17,7 +17,7 @@ defineProps<Props>();
       class="border min-h-[190px] border-foreground/40 w-full p-3 rounded-md flex flex-col gap-5 relative"
     >
       <div class=" absolute -top-2 -right-2 z-20">
-        <MenuOptionsCard v-bind="item">
+        <MenuOptionsCard :item="item">
           <Button
             class="size-8 p-1 border border-foreground/50 hover:border-foreground !rounded"
             variant="outline"
