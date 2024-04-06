@@ -1,5 +1,5 @@
-import { useCodeStore } from '@/store/mainStore';
-import { RouteRecordRaw, createWebHistory, createRouter } from 'vue-router';
+import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
+import { propsEditView } from '@/router/props';
 
 export enum RouteNames {
   HOME = 'home',
@@ -17,27 +17,7 @@ const routes: RouteRecordRaw[] = [
     path: '/editor',
     component: () => import('@/views/EditorView.vue'),
     name: RouteNames.EDITOR,
-    props: (to) => {
-      // TODO: refactor
-      if (to.query?.id) {
-        const store = useCodeStore();
-
-        const itemSelected = store.codeList?.find(
-          (item) => item.id === to.query.id
-        );
-
-        if (itemSelected) {
-          store.onSelectLanguage(itemSelected.language);
-          store.onSelectTheme(itemSelected.theme);
-          store.onUpdateCode(itemSelected.code);
-          store.onUpdateDescription(itemSelected.description || '');
-        }
-
-        return {
-          itemId: itemSelected?.id,
-        };
-      }
-    },
+    props: propsEditView,
   },
   {
     path: '/sharing/:code',
