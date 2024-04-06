@@ -4,6 +4,9 @@ import Button from '@/components/ui/button/Button.vue';
 import { useCodeStore } from '@/store/mainStore';
 import CustomDialog from '@/components/CustomDialog.vue';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useToast } from '@/components/ui/toast/use-toast';
+import { RouteNames } from '@/router/main';
 
 interface Props {
   idCode: string
@@ -11,21 +14,25 @@ interface Props {
 
 const props = defineProps<Props>()
 const emit = defineEmits<{   (e: 'callback'): void }>()
-const store = useCodeStore()
+const { deleteItemFromList } = useCodeStore()
+const router = useRouter()
+const { toast } = useToast()
 const loading = ref(false)
 
 
 const handleDelete = async (onCloseDialog: (shouldCloseModal: boolean) => void) => {
   try {
     loading.value = true
-    console.log('delete code: ', props.idCode)
 
-    store.$patch({
-      codeList: store.codeList?.filter(code => code.id !== props.idCode)
-    })
     onCloseDialog(true)
+    deleteItemFromList(props.idCode)
 
-    emit('callback')
+    toast({
+      title: `code deleted successfully`,
+      duration: 2000,
+      class: 'toast-success'
+    })
+    router.replace({ name: RouteNames.HOME, replace: true })
 
   } catch (error) {
     console.log('error', error)

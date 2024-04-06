@@ -18,13 +18,23 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/EditorView.vue'),
     name: RouteNames.EDITOR,
     props: (to) => {
+      // TODO: refactor
       if (to.query?.id) {
         const store = useCodeStore();
+
         const itemSelected = store.codeList?.find(
           (item) => item.id === to.query.id
         );
+
+        if (itemSelected) {
+          store.onSelectLanguage(itemSelected.language);
+          store.onSelectTheme(itemSelected.theme);
+          store.onUpdateCode(itemSelected.code);
+          store.onUpdateDescription(itemSelected.description || '');
+        }
+
         return {
-          item: itemSelected,
+          itemId: itemSelected?.id,
         };
       }
     },

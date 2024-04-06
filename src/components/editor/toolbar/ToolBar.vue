@@ -1,27 +1,15 @@
 <script setup lang="ts">
-import SelectLanguage from '@/components/editor/toolbar/SelectLanguage.vue'
-import { configLanguages, configThemes } from '@/config'
+import SelectLanguage from '@/components/editor/toolbar/SelectLanguage.vue';
+import { configLanguages, configThemes } from '@/config';
+import { useCodeStore } from '@/store/mainStore';
 
 interface Props {
   defaultTheme?:string
   defaultLanguage?:string
 }
-const props = defineProps<Props>()
-console.log(props)
-import { useCodeStore } from '@/store/mainStore'
-const store = useCodeStore()
+defineProps<Props>()
 
-const onSelectLanguage = (language: string) => {
-  store.$patch({
-    language
-  })
-}
-
-const onSelectTheme = (theme: string) => {
-  store.$patch({
-    theme
-  })
-}
+const { onSelectLanguage, onSelectTheme } = useCodeStore()
 </script>
 
 <template>
@@ -34,7 +22,7 @@ const onSelectTheme = (theme: string) => {
         :list="configLanguages.list"
         :not-found-label="configLanguages.notFoundLabel"
         :placeholder="configLanguages.placeholder"
-        :default-value="defaultLanguage ||   configLanguages.defaultValue"
+        :default-value="defaultLanguage || configLanguages.defaultValue"
         :on-select-value="onSelectLanguage"
       />
       <SelectLanguage

@@ -7,21 +7,21 @@ import { useShareCode } from '@/composables/useShareCode';
 import { RouteNames } from '@/router/main';
 import { useCodeStore } from '@/store/mainStore';
 import { Icon } from '@iconify/vue';
-import { toRef } from 'vue';
-import { onBeforeRouteUpdate, useRouter, onBeforeRouteLeave } from 'vue-router';
+import { storeToRefs } from 'pinia';
+import { useRouter } from 'vue-router';
 
 interface Props {
   idCodeToEdit?: string
-  description: string
 }
 
 const props = defineProps<Props>()
-const description =  toRef(props.description)
-const store = useCodeStore()
+
 const { toast } = useToast()
 const router = useRouter()
-
+const store = useCodeStore()
+const { description } = storeToRefs(store)
 const handleShare = useShareCode()
+
 
 const handleSave = () => {
 
@@ -34,7 +34,7 @@ const handleSave = () => {
     theme: store.theme,
     description: description.value
   }
-  console.log(dataToSave)
+
   if (isEditing) {
     store.updateCode(dataToSave)
   } else {
@@ -48,22 +48,6 @@ const handleSave = () => {
   })
   router.push({ name: RouteNames.HOME })
 }
-
-const handleDeleteCompleted = () => {
-  toast({
-    title: `code deleted successfully`,
-    duration: 2000,
-    class: 'toast-success'
-  })
-  router.replace({ name: RouteNames.HOME, replace: true })
-}
-
-onBeforeRouteUpdate(() => {
-  store.resetCodeStore()
-})
-onBeforeRouteLeave(() => {
-  store.resetCodeStore()
-})
 </script>
 
 <template>
@@ -114,7 +98,6 @@ onBeforeRouteLeave(() => {
       <DeleteAlertDialog
         v-if="!!idCodeToEdit"
         :id-code="idCodeToEdit"
-        @callback="handleDeleteCompleted"
       />
     </div>
   </div>

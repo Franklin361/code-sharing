@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { getLanguage, getTheme } from '@/lib/utils';
 import { EditorView, basicSetup } from 'codemirror';
-import { shallowRef, toRef } from 'vue';
+import { computed, shallowRef, toRef } from 'vue';
 import { Codemirror } from 'vue-codemirror';
 
 interface Props {
@@ -10,16 +11,24 @@ interface Props {
   code: string
 }
 
+interface Emits {
+  (e: 'update:modelValue', value: string): void
+}
 
 const props = defineProps<Props>()
-
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void
-}>()
+const emit = defineEmits<Emits>()
 
 const codeRef = toRef(props.code)
-
 const view = shallowRef()
+
+const extensions = computed(( ) => {
+  return [
+    basicSetup,
+    getLanguage(props.language)() as any,
+    getTheme(props.theme),
+    props.disabled ? EditorView.lineWrapping : null,
+  ].filter(Boolean)
+})
 
 const handleReady = (payload: {
   view: EditorView;
@@ -31,14 +40,19 @@ const handleReady = (payload: {
 </script>
 
 <template>
-  <codemirror v-model:model-value="codeRef" v-on:change="emit('update:modelValue', $event)" :disabled="disabled"
-    placeholder="Code goes here..." :class="disabled && 'cm-disabled'" :style="{ minHeight: disabled ? 'auto' : '40dvh' }"
-    :autofocus="!disabled" :indent-with-tab="true" :tab-size="2" :extensions="[
-    basicSetup,
-    language(),
-    theme,
-    disabled ? EditorView.lineWrapping : null,
-  ].filter(Boolean)" @ready="handleReady" />
+  <codemirror
+    v-model:model-value="codeRef"
+    v-on:change="emit('update:modelValue', $event)"
+    :disabled="disabled"
+    placeholder="Code goes here..."
+    :class="disabled && 'cm-disabled'"
+    :style="{ minHeight: disabled ? 'auto' : '40dvh' }"
+    :autofocus="!disabled"
+    :indent-with-tab="true"
+    :tab-size="2"
+    :extensions="extensions"
+    @ready="handleReady"
+  />
 </template>
 
 <style>

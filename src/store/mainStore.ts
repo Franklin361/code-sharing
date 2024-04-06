@@ -11,6 +11,8 @@ export const useCodeStore = defineStore('code-store', () => {
 
   const codeList = ref<Code[] | null>(null);
 
+  // const languageExtension = computed(() => getLanguage(language.value))
+
   const addCodeToList = async (code: Code) => {
     if (codeList.value === null) {
       codeList.value = [code];
@@ -27,10 +29,33 @@ export const useCodeStore = defineStore('code-store', () => {
   };
 
   const resetCodeStore = () => {
+    console.log('reset');
     language.value = languagesList[0].value;
     theme.value = themesList[0].value;
     code.value = '';
     description.value = '';
+  };
+
+  const deleteItemFromList = (id: string) => {
+    if (codeList.value) {
+      codeList.value = codeList.value.filter((code) => code.id !== id);
+    }
+  };
+
+  const onSelectLanguage = (languageSelected: string) => {
+    language.value = languageSelected;
+  };
+
+  const onSelectTheme = (themeSelected: string) => {
+    theme.value = themeSelected;
+  };
+
+  const onUpdateCode = (codeUpdated: string) => {
+    code.value = codeUpdated;
+  };
+
+  const onUpdateDescription = (descriptionUpdated: string) => {
+    description.value = descriptionUpdated;
   };
 
   return {
@@ -42,5 +67,10 @@ export const useCodeStore = defineStore('code-store', () => {
     addCodeToList,
     updateCode,
     resetCodeStore,
+    deleteItemFromList,
+    onSelectLanguage,
+    onSelectTheme,
+    onUpdateCode,
+    onUpdateDescription,
   };
 });
