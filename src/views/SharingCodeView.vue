@@ -1,38 +1,19 @@
 <script setup lang="ts">
-import { defineAsyncComponent, ref, shallowRef } from 'vue';
 import ErrorEditor from '@/components/editor/ErrorEditor.vue';
 import LoadingEditor from '@/components/editor/LoadingEditor.vue';
-import { getLanguage, getTheme } from '@/lib/utils';
-import { useRoute } from 'vue-router';
 import { Button } from '@/components/ui/button';
+import { getLanguage, getTheme } from '@/lib/utils';
 import { Icon } from '@iconify/vue';
-import { useToast } from '@/components/ui/toast/use-toast'
+import { defineAsyncComponent, ref, shallowRef } from 'vue';
+import { useRoute } from 'vue-router';
+import { useCopy } from '@/composables/useCopy';
 
 
 const route = useRoute()
-const {toast} = useToast()
 const theme = shallowRef(getTheme(route.query.theme as string));
 const language = ref(getLanguage(route.query.lang as string));
 const code = ref(route.params.code as string);
-
-const handleCopy = async() => {
-  try {
-
-    await window.navigator.clipboard.writeText(code.value);
-    toast({
-      title: 'Code copied to your clipboard!',
-      duration: 2000,
-      class: 'toast-success'
-    })
-  } catch (error) {
-    console.log(error)
-    toast({
-      title: 'It was an error, try later',
-      duration: 2000,
-      class: 'toast-error'
-    })
-  }
-}
+const handleCopy = useCopy()
 
 const Editor = defineAsyncComponent({
   loader: () => import('@/components/editor/Editor.vue'),
@@ -50,7 +31,7 @@ const Editor = defineAsyncComponent({
       <span class="text-sm absolute -top-7 left-1 opacity-60"
         >Description about the code</span
       >
-      <p>{{route.query.description}}</p>
+      <p>{{ route.query.description }}</p>
       <Icon
         icon="material-symbols-light:info"
         class="absolute -top-5 right-0 size-8"
@@ -77,7 +58,7 @@ const Editor = defineAsyncComponent({
         >
           <Button
             class="flex justify-center items-center gap-1 group-hover:opacity-100 opacity-0 hover:!opacity-100 delay-100 transition-all"
-            @click="handleCopy"
+            @click="handleCopy(code)"
           >
             <Icon
               icon="mdi-light:clipboard"
@@ -92,13 +73,21 @@ const Editor = defineAsyncComponent({
 </template>
 
 <style scoped>
-.custom-animation{
+.custom-animation {
   animation: custom-animation 1s ease 1s 3;
 }
 
 @keyframes custom-animation {
-  0% { opacity: 1; }
-  50% { opacity: 0.5; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 </style>
