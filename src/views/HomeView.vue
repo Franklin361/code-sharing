@@ -8,11 +8,8 @@ const store = useCodeStore()
 </script>
 
 <template>
-  <main class="px-5">
-    <ListCode
-      v-if="store.codeList && store.codeList.length > 0"
-      :code-list="store.codeList"
-    />
+  <main class="px-5 min-h-[200vh]">
+    <ListCode v-if="store.codeList && store.codeList.length > 0" :code-list="store.codeList" />
     <NoItems v-else />
   </main>
 </template>
