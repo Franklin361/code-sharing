@@ -11,7 +11,7 @@ const titles = {
   [RouteNames.EDITOR]: 'Editor ✏️',
   [RouteNames.SHARING_CODE]: 'Instant code shared 🔗',
 }
-const titleSelected = computed(() => (titles as any)[route.name!.toString()])
+const titleSelected = computed(() => route.name && (titles as any)[route.name.toString()])
 </script>
 
 <template>

@@ -29,10 +29,19 @@ const handleSave = () => {
 
   const dataToSave = {
     id: props.idCodeToEdit || crypto.randomUUID(),
-    code: store.code,
-    language: store.language,
-    theme: store.theme,
-    description: description.value
+    code: store.code || '',
+    language: store.language || '',
+    theme: store.theme || '',
+    description: description.value || ''
+  }
+
+  if(!dataToSave.code) {
+    toast({
+      title: `The code is required`,
+      duration: 2000,
+      class: 'toast-error'
+    })
+    return
   }
 
   if (isEditing) {
@@ -74,7 +83,8 @@ const handleSave = () => {
 
     <div class="flex items-center justify-around gap-5">
       <Button
-        class="flex justify-center gap-2 items-center"
+        class="flex justify-center gap-2 items-center disabled:opacity-60"
+        :disabled="store.code.length < 5"
         @click="handleSave"
       >
         <Icon
@@ -85,7 +95,8 @@ const handleSave = () => {
         <span v-else>Edit</span>
       </Button>
       <Button
-        class="flex justify-center gap-2 items-center"
+        class="flex justify-center gap-2 items-center disabled:opacity-60"
+        :disabled="store.code.length < 5"
         @click="handleShare({ ...store })"
       >
         <Icon

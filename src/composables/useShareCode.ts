@@ -6,6 +6,10 @@ export const useShareCode = () => {
   const router = useRouter();
 
   const handleShare = (props: Omit<Code, 'id'>) => {
+    if (!props.code) {
+      return;
+    }
+
     router.push({
       name: RouteNames.SHARING_CODE,
       params: {
