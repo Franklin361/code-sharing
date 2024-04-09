@@ -7,9 +7,9 @@ import { useRoute } from 'vue-router';
 const route = useRoute()
 
 const titles = {
-  [RouteNames.HOME]: '',
-  [RouteNames.EDITOR]: 'Editor',
-  [RouteNames.SHARING_CODE]: 'Instant code shared',
+  [RouteNames.HOME]: '🎉',
+  [RouteNames.EDITOR]: 'Editor ✏️',
+  [RouteNames.SHARING_CODE]: 'Instant code shared 🔗',
 }
 const titleSelected = computed(() => (titles as any)[route.name!.toString()])
 </script>
