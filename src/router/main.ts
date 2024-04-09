@@ -1,5 +1,5 @@
-import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
 import { propsEditView } from '@/router/props';
+import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
 
 export enum RouteNames {
   HOME = 'home',
@@ -21,7 +21,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/sharing/:code',
-    component: () => import('@/views/SharingCodeView.vue'),
+    component: () => import('@/views/SharedInstantCodeView.vue'),
     name: RouteNames.SHARING_CODE,
   },
 ];

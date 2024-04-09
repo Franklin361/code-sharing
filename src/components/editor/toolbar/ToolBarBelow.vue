@@ -103,7 +103,7 @@ const handleSave = () => {
           icon="material-symbols-light:share-outline"
           class="size-6"
         />
-        Share
+        Instant sharing
       </Button>
 
       <DeleteAlertDialog

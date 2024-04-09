@@ -16,7 +16,7 @@ export const useShareCode = () => {
         code: props.code,
       },
       query: {
-        lang: props.language,
+        language: props.language,
         theme: props.theme,
         description: props.description,
       },
