@@ -31,11 +31,17 @@ onBeforeRouteLeave(() => {
 
 <template>
   <main class="container mx-auto p-5">
+    <ToolBar
+      :default-language="store.language"
+      :default-theme="store.theme"
+    />
 
-    <ToolBar :default-language="store.language" :default-theme="store.theme" />
-
-    <Editor :language="store.language" :theme="store.theme" :code="store.code"
-      @update:modelValue="store.onUpdateCode" />
+    <Editor
+      :language="store.language"
+      :theme="store.theme"
+      :code="store.code"
+      @update:modelValue="store.onUpdateCode"
+    />
 
     <ToolBarBelow :id-code-to-edit="itemId" />
   </main>

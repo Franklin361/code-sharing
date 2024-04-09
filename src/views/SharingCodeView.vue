@@ -2,17 +2,13 @@
 import ErrorEditor from '@/components/editor/ErrorEditor.vue';
 import LoadingEditor from '@/components/editor/LoadingEditor.vue';
 import { Button } from '@/components/ui/button';
-import { getLanguage, getTheme } from '@/lib/utils';
-import { Icon } from '@iconify/vue';
-import { defineAsyncComponent, ref, shallowRef } from 'vue';
-import { useRoute } from 'vue-router';
 import { useCopy } from '@/composables/useCopy';
+import { Icon } from '@iconify/vue';
+import { defineAsyncComponent } from 'vue';
+import { useRoute } from 'vue-router';
 
 
 const route = useRoute()
-const theme = shallowRef(getTheme(route.query.theme as string));
-const language = ref(getLanguage(route.query.lang as string));
-const code = ref(route.params.code as string);
 const handleCopy = useCopy()
 
 const Editor = defineAsyncComponent({
@@ -48,17 +44,17 @@ const Editor = defineAsyncComponent({
       </header>
       <div class="relative group overflow-hidden">
         <Editor
-          :language="language"
-          :theme="theme"
-          :code="code"
+          :language="route.query.lang"
+          :theme="route.query.theme"
+          :code="(route.params.code as string)"
           disabled
         />
         <div
-          class="size-full absolute top-0 left-0 bg-transparent flex justify-end p-2 group-hover:translate-y-0 translate-y-full transition-all ease-in-out"
+          class="size-fit absolute top-0 right-2 bg-transparent p-2 group-hover:translate-y-0 translate-y-[20px] transition-all ease-in-out"
         >
           <Button
             class="flex justify-center items-center gap-1 group-hover:opacity-100 opacity-0 hover:!opacity-100 delay-100 transition-all"
-            @click="handleCopy(code)"
+            @click="handleCopy(route.params.code as string)"
           >
             <Icon
               icon="mdi-light:clipboard"
