@@ -18,3 +18,5 @@
 [x] HomeView.vue
 [] Editor.vue
 [] SharingCode.vue
+
+https://supabase.com/docs/guides/getting-started/quickstarts/vue

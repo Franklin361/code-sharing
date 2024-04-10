@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import ModeToggle from '@/components/ModeToggle.vue';
+import ButtonGitHub from '@/components/auth/ButtonGitHub.vue';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import Button from '@/components/ui/button/Button.vue';
 import { RouteNames } from '@/router/main';
-import { computed } from 'vue';
+import { supabase } from '@/supabase/client';
+import { Session } from '@supabase/supabase-js';
+import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute()
@@ -12,19 +17,80 @@ const titles = {
   [RouteNames.SHARING_CODE]: 'Instant code shared 🔗',
 }
 const titleSelected = computed(() => route.name && (titles as any)[route.name.toString()])
+
+const loading = ref(true)
+const session = ref<Session| null>(null)
+
+onMounted(() => {
+  supabase.auth.getSession().then(({ data }) => {
+    session.value = data.session
+    loading.value = false
+  })
+
+  loading.value = true
+  supabase.auth.onAuthStateChange((_, _session) => {
+    session.value = _session
+    loading.value = false
+  })
+})
+
+const handleSignOut = async() => {
+  loading.value = true
+  await supabase.auth.signOut()
+  loading.value = false
+}
 </script>
 
 <template>
   <nav
-    class="flex items-center justify-between border-b p-3 px-5 shadow-xl shadow-black/20 dark:bg-gradient-to-l from-purple-700/70 to-violet-900/70 sticky top-0 left-0 z-30 backdrop-blur-xl"
+    class="flex items-center gap-10 justify-between border-b p-3 px-5 shadow-xl shadow-black/20 dark:bg-gradient-to-l from-purple-700/70 to-violet-900/70 sticky top-0 left-0 z-30 backdrop-blur-xl"
   >
-    <span>Note Code</span>
+    <span class=" flex-1">Note Code</span>
 
     <span
       v-if="!!titleSelected"
-      class="font-bold"
+      class="font-bold  text-xl opacity-80 flex-1 text-center"
       >{{ titleSelected }}</span
     >
-    <ModeToggle />
+
+    <div class="flex items-center gap-5 justify-end  flex-1">
+      <div
+        v-if="loading"
+        class="inline-block size-5 animate-spin rounded-full border-2 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white"
+        role="status"
+      ></div>
+
+      <template v-else>
+        <ButtonGitHub v-if="!session" />
+        <div
+          v-else
+          class="flex items-center gap-5"
+        >
+          <div class="flex items-center gap-5">
+            <Avatar>
+              <AvatarImage
+                :src="session.user.user_metadata.avatar_url"
+                :alt="session.user.user_metadata.name"
+              />
+              <AvatarFallback
+                >{{ (session.user.user_metadata.user_name as string).slice(0,2) }}</AvatarFallback
+              >
+            </Avatar>
+            <span
+              class="text-sm font-semibold"
+              >{{ session.user.user_metadata.user_name }}</span
+            >
+          </div>
+
+          <Button
+            variant="destructive"
+            @click="handleSignOut"
+            >Sign out</Button
+          >
+        </div>
+      </template>
+
+      <ModeToggle />
+    </div>
   </nav>
 </template>
