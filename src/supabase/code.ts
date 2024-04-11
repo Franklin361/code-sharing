@@ -82,7 +82,7 @@ export const addNewCode = async (values: Omit<Code, 'id'>) => {
   }
 };
 
-export const updateNewCode = async ({
+export const updateCode = async ({
   userId,
   values: { id, ...values },
 }: {
