@@ -29,11 +29,12 @@ const useAuth = () => {
 
   const handleSignIn = async () => {
     try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
+      const signIn = await supabase.auth.signInWithOAuth({
         provider: 'github',
       });
-      if (error) {
-        console.log(error);
+
+      if (signIn.error) {
+        console.log(signIn.error);
         return;
       }
     } catch (error) {
