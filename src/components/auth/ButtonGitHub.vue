@@ -1,24 +1,8 @@
 <script setup lang="ts">
 import Button from '@/components/ui/button/Button.vue';
-import { supabase } from '@/supabase/client';
+import useAuth from '@/composables/useAuth.ts';
 
-const handleSignIn = async() => {
-  try {
-    const {  data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'github'
-    })
-
-    if(error){
-      console.log(error)
-      return;
-    }
-
-    console.log(data)
-
-  } catch (error) {
-    console.log(error)
-  }
-}
+const { handleSignIn } = useAuth()
 </script>
 
 <template>

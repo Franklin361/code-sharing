@@ -3,11 +3,12 @@ import ModeToggle from '@/components/ModeToggle.vue';
 import ButtonGitHub from '@/components/auth/ButtonGitHub.vue';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Button from '@/components/ui/button/Button.vue';
+import useAuth from '@/composables/useAuth.ts';
 import { RouteNames } from '@/router/main';
-import { supabase } from '@/supabase/client';
-import { Session } from '@supabase/supabase-js';
-import { computed, onMounted, ref } from 'vue';
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
+
+const { loading, session, handleSignOut } = useAuth()
 
 const route = useRoute()
 
@@ -17,28 +18,6 @@ const titles = {
   [RouteNames.SHARING_CODE]: 'Instant code shared 🔗',
 }
 const titleSelected = computed(() => route.name && (titles as any)[route.name.toString()])
-
-const loading = ref(true)
-const session = ref<Session| null>(null)
-
-onMounted(() => {
-  supabase.auth.getSession().then(({ data }) => {
-    session.value = data.session
-    loading.value = false
-  })
-
-  loading.value = true
-  supabase.auth.onAuthStateChange((_, _session) => {
-    session.value = _session
-    loading.value = false
-  })
-})
-
-const handleSignOut = async() => {
-  loading.value = true
-  await supabase.auth.signOut()
-  loading.value = false
-}
 </script>
 
 <template>
