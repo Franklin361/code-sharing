@@ -1,3 +1,4 @@
+import { useAuthStore } from '@/store/authStore';
 import { supabase } from '@/supabase/client';
 import { Session } from '@supabase/supabase-js';
 import { onMounted, ref } from 'vue';
@@ -5,11 +6,15 @@ import { onMounted, ref } from 'vue';
 const useAuth = () => {
   const loading = ref(true);
   const session = ref<Session | null>(null);
+  const useAuth = useAuthStore();
 
   onMounted(() => {
     supabase.auth.getSession().then(({ data }) => {
       console.log('getSession called');
       session.value = data.session;
+      if (data.session?.user) {
+        useAuth.setUser(data.session.user);
+      }
       loading.value = false;
     });
 
@@ -17,6 +22,7 @@ const useAuth = () => {
     supabase.auth.onAuthStateChange((_, _session) => {
       console.log('onAuthStateChange called');
       session.value = _session;
+      if (_session?.user) useAuth.setUser(_session.user);
       loading.value = false;
     });
   });
@@ -24,6 +30,7 @@ const useAuth = () => {
   const handleSignOut = async () => {
     loading.value = true;
     await supabase.auth.signOut();
+    useAuth.clearUser();
     loading.value = false;
   };
 

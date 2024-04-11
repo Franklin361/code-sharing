@@ -11,7 +11,9 @@ export const useCodeStore = defineStore('code-store', () => {
 
   const codeList = ref<Code[] | null>(null);
 
-  // const languageExtension = computed(() => getLanguage(language.value))
+  const initializeCodeList = (codes: Code[]) => {
+    codeList.value = codes;
+  };
 
   const addCodeToList = async (code: Code) => {
     if (codeList.value === null) {
@@ -72,5 +74,6 @@ export const useCodeStore = defineStore('code-store', () => {
     onSelectTheme,
     onUpdateCode,
     onUpdateDescription,
+    initializeCodeList,
   };
 });
