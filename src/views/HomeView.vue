@@ -13,13 +13,14 @@ const loading = ref(true)
 const useCode = useCodeStore();
 const useAuth = useAuthStore();
 
-if(useAuth.user?.id){
-    getAllCodesByUser(useAuth.user.id).then(({ data,error }) => {
-      if(!error) useCode.initializeCodeList(data || [])
-    }).finally(() => {
-      loading.value = false
-    })
+const initialize = async() => {
+  if(useAuth.user?.id){
+    const { data, error } = await getAllCodesByUser(useAuth.user.id)
+    if(!error) useCode.initializeCodeList(data || [])
+  }
+  loading.value = false
 }
+initialize()
 </script>
 
 <template>

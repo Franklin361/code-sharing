@@ -5,9 +5,12 @@ import Input from '@/components/ui/input/Input.vue';
 import { useToast } from '@/components/ui/toast/use-toast';
 import { useShareCode } from '@/composables/useShareCode';
 import { RouteNames } from '@/router/main';
+import { useAuthStore } from '@/store/authStore';
 import { useCodeStore } from '@/store/mainStore';
+import { addNewCode, updateCode } from '@/supabase/code';
 import { Icon } from '@iconify/vue';
 import { storeToRefs } from 'pinia';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 interface Props {
@@ -19,43 +22,79 @@ const props = defineProps<Props>()
 const { toast } = useToast()
 const router = useRouter()
 const store = useCodeStore()
+const useAuth = useAuthStore()
 const { description } = storeToRefs(store)
 const handleShare = useShareCode()
+const loading = ref(false)
 
+const handleSave = async() => {
+  loading.value = true
 
-const handleSave = () => {
+  try {
+    if(props.idCodeToEdit) await handleUpdateCode()
+    else await handleCreateCode()
 
-  const isEditing = !!props.idCodeToEdit
-
-  const dataToSave = {
-    id: props.idCodeToEdit || crypto.randomUUID(),
-    code: store.code || '',
-    language: store.language || '',
-    theme: store.theme || '',
-    description: description.value || ''
+    router.push({ name: RouteNames.HOME })
+  } finally {
+    loading.value = false
   }
+}
 
-  if(!dataToSave.code) {
+const handleCreateCode =  async(  ) => {
+  const { data, error } = await addNewCode({
+    code: store.code,
+    language: store.language,
+    theme: store.theme,
+    description: description.value,
+  })
+
+  if(error){
     toast({
-      title: `The code is required`,
+      title: error,
       duration: 2000,
       class: 'toast-error'
     })
     return
   }
 
-  if (isEditing) {
-    store.updateCode(dataToSave)
-  } else {
-    store.addCodeToList(dataToSave)
-  }
-
+  store.addCodeToList(data)
   toast({
-    title: `code ${isEditing ? 'edited' : 'added'} successfully`,
+    title: `code added successfully`,
     duration: 2000,
     class: 'toast-success'
   })
-  router.push({ name: RouteNames.HOME })
+}
+
+const handleUpdateCode =  async(  ) => {
+
+  if(!useAuth.user?.id) return;
+
+  const { data, error } = await updateCode({
+    values: {
+      id: props.idCodeToEdit!,
+      code: store.code,
+      language: store.language,
+      theme: store.theme,
+      description: description.value,
+    },
+    userId: useAuth.user.id
+  })
+
+  if(error){
+    toast({
+      title: error,
+      duration: 2000,
+      class: 'toast-error'
+    })
+    return
+  }
+
+  store.updateCode(data)
+  toast({
+    title: `code updated successfully`,
+    duration: 2000,
+    class: 'toast-success'
+  })
 }
 </script>
 
