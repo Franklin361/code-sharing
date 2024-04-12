@@ -1,6 +1,6 @@
 export interface Code {
   description?: string;
-  id: string;
+  id: number;
   code: string;
   language: string;
   theme: string;

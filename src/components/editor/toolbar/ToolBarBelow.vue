@@ -14,7 +14,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 interface Props {
-  idCodeToEdit?: string
+  idCodeToEdit?: number
 }
 
 const props = defineProps<Props>()

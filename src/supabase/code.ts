@@ -57,7 +57,7 @@ export const getCodeById = async (props: {
   }
 };
 
-export const addNewCode = async (values: Omit<Code, 'id'>) => {
+export const addNewCode = async (values: Required<Omit<Code, 'id'>>) => {
   const response: { data: any; error: string } = {
     data: null,
     error: '',

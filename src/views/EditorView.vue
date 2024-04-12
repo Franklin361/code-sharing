@@ -14,11 +14,6 @@ const Editor = defineAsyncComponent({
   errorComponent: ErrorEditor
 })
 
-interface Props {
-  itemId?: string
-}
-defineProps<Props>()
-
 const store = useCodeStore();
 
 onBeforeRouteUpdate(() => {
@@ -43,6 +38,6 @@ onBeforeRouteLeave(() => {
       @update:modelValue="store.onUpdateCode"
     />
 
-    <ToolBarBelow :id-code-to-edit="itemId" />
+    <ToolBarBelow :id-code-to-edit="+$route.params.id" />
   </main>
 </template>

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { Icon } from '@iconify/vue';
-import Button from '@/components/ui/button/Button.vue';
-import { useCodeStore } from '@/store/mainStore';
 import CustomDialog from '@/components/CustomDialog.vue';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import Button from '@/components/ui/button/Button.vue';
 import { useToast } from '@/components/ui/toast/use-toast';
 import { RouteNames } from '@/router/main';
+import { useCodeStore } from '@/store/mainStore';
+import { Icon } from '@iconify/vue';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 interface Props {
-  idCode: string
+  idCode: number
 }
 
 const props = defineProps<Props>()

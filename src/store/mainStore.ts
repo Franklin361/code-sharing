@@ -38,7 +38,7 @@ export const useCodeStore = defineStore('code-store', () => {
     description.value = '';
   };
 
-  const deleteItemFromList = (id: string) => {
+  const deleteItemFromList = (id: number) => {
     if (codeList.value) {
       codeList.value = codeList.value.filter((code) => code.id !== id);
     }

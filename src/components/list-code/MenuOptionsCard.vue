@@ -1,12 +1,12 @@
 <script setup lang="ts">
 ;
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+DropdownMenu,
+DropdownMenuContent,
+DropdownMenuItem,
+DropdownMenuLabel,
+DropdownMenuSeparator,
+DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useShareCode } from '@/composables/useShareCode';
 import { RouteNames } from '@/router/main';
@@ -19,7 +19,6 @@ interface Props{
   item: Code
 }
 
-
 const props = defineProps<Props>();
 
 const router = useRouter()
@@ -28,8 +27,8 @@ const handleShare = useShareCode()
 
 const handleGoToEditor = () => {
   router.push({
-    name: RouteNames.EDITOR,
-    query: {
+    name: RouteNames.EDIT_CODE,
+    params: {
       id: props.item.id
     }
   })

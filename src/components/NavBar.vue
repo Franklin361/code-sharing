@@ -16,6 +16,7 @@ const titles = {
   [RouteNames.HOME]: '🎉',
   [RouteNames.EDITOR]: 'Editor ✏️',
   [RouteNames.SHARING_CODE]: 'Instant code shared 🔗',
+  [RouteNames.EDIT_CODE]: 'Update code 📝',
 }
 const titleSelected = computed(() => route.name && (titles as any)[route.name.toString()])
 </script>
