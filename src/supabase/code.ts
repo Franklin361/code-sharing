@@ -113,7 +113,7 @@ export const updateCode = async ({
   }
 };
 
-export const deleteCode = async (props: { codeId: string; userId: string }) => {
+export const deleteCode = async (props: { codeId: number; userId: string }) => {
   const response: { data: any; error: string } = {
     data: null,
     error: '',

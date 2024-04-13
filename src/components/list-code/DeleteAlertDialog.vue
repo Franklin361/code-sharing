@@ -3,7 +3,9 @@ import CustomDialog from '@/components/CustomDialog.vue';
 import Button from '@/components/ui/button/Button.vue';
 import { useToast } from '@/components/ui/toast/use-toast';
 import { RouteNames } from '@/router/main';
+import { useAuthStore } from '@/store/authStore';
 import { useCodeStore } from '@/store/mainStore';
+import { deleteCode } from '@/supabase/code';
 import { Icon } from '@iconify/vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -18,13 +20,33 @@ const { deleteItemFromList } = useCodeStore()
 const router = useRouter()
 const { toast } = useToast()
 const loading = ref(false)
-
+const useAuth = useAuthStore()
 
 const handleDelete = async (onCloseDialog: (shouldCloseModal: boolean) => void) => {
+
+  if(!useAuth.user?.id) {
+    toast({
+      title: `You must be authenticated to delete your code`,
+      duration: 2000,
+      class: 'toast-error'
+    })
+    return
+  }
+
   try {
     loading.value = true
 
-    onCloseDialog(true)
+    const { error } = await deleteCode({ codeId: props.idCode,  userId:useAuth.user.id  })
+
+    if(error){
+      toast({
+        title: error,
+        duration: 2000,
+        class: 'toast-error'
+      })
+      return
+    }
+
     deleteItemFromList(props.idCode)
 
     toast({
@@ -32,12 +54,14 @@ const handleDelete = async (onCloseDialog: (shouldCloseModal: boolean) => void) 
       duration: 2000,
       class: 'toast-success'
     })
+
     router.replace({ name: RouteNames.HOME, replace: true })
 
   } catch (error) {
     console.log('error', error)
   } finally {
     loading.value = false
+    onCloseDialog(true)
   }
 }
 </script>
