@@ -45,7 +45,13 @@ export const getCodeById = async (props: {
       .eq('user_id', props.userId)
       .single();
 
-    if (error) response.error = error.message;
+    if (error) {
+      if (error.code === 'PGRST116') {
+        response.error = 'The code item does not exist';
+      } else {
+        response.error = error.message;
+      }
+    }
 
     if (data) response.data = data;
 
