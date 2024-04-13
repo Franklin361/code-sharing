@@ -90,6 +90,7 @@ const handleUpdateCode =  async(  ) => {
   }
 
   store.updateCode(data)
+
   toast({
     title: `code updated successfully`,
     duration: 2000,

@@ -100,6 +100,7 @@ export const updateCode = async ({
       .update(values)
       .eq('id', id)
       .eq('user_id', userId)
+      .select()
       .single();
 
     if (error) response.error = error.message;

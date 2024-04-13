@@ -14,7 +14,9 @@ const useCode = useCodeStore();
 const useAuth = useAuthStore();
 
 const initialize = async() => {
-  if(useAuth.user?.id){
+
+  if(useAuth.user?.id && useCode.codeList === null){
+    console.log('initialize code list')
     const { data, error } = await getAllCodesByUser(useAuth.user.id)
     if(!error) useCode.initializeCodeList(data || [])
   }
