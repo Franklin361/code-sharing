@@ -1,8 +1,6 @@
-import { useToast } from '@/components/ui/toast';
-import { useCodeStore } from '@/store/mainStore';
-import { supabase } from '@/supabase/client';
-import { getCodeById } from '@/supabase/code';
 import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
+
+import { existCodeItem, isAuthenticated } from '@/router/guards';
 
 export enum RouteNames {
   HOME = 'home',
@@ -26,44 +24,7 @@ const routes: RouteRecordRaw[] = [
         path: ':id',
         component: () => import('@/views/EditorView.vue'),
         name: RouteNames.EDIT_CODE,
-        beforeEnter: async (to) => {
-          // TODO - REFACTOR: separate guards "session" and "existCodeItem"
-          const {
-            data: { session },
-          } = await supabase.auth.getSession();
-          const useCode = useCodeStore();
-
-          const { toast } = useToast();
-
-          if (!session) {
-            toast({
-              title: 'You must be authenticated to edit your code',
-              duration: 2000,
-              class: 'toast-error',
-            });
-            return { name: RouteNames.HOME, replace: true };
-          }
-
-          const codeId = +to.params.id;
-          const response = await getCodeById({
-            codeId,
-            userId: session.user.id,
-          });
-
-          if (response.error) {
-            toast({
-              title: response.error,
-              duration: 2000,
-              class: 'toast-error',
-            });
-            return { name: RouteNames.HOME, replace: true };
-          }
-
-          useCode.onSelectLanguage(response.data.language);
-          useCode.onSelectTheme(response.data.theme);
-          useCode.onUpdateCode(response.data.code);
-          useCode.onUpdateDescription(response.data.description || '');
-        },
+        beforeEnter: [isAuthenticated, existCodeItem],
       },
     ],
   },
