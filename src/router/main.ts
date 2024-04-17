@@ -5,6 +5,7 @@ import { existCodeItem, isAuthenticated } from '@/router/guards';
 export enum RouteNames {
   HOME = 'home',
   EDITOR = 'editor',
+  SHARING_ANON_CODE = 'sharing-anon-code',
   SHARING_CODE = 'sharing-code-preview',
   EDIT_CODE = 'edit-code',
 }
@@ -29,9 +30,15 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    path: '/instant-sharing/:code',
+    path: '/instant-sharing',
     component: () => import('@/views/SharedInstantCodeView.vue'),
+    name: RouteNames.SHARING_ANON_CODE,
+  },
+  {
+    path: '/sharing/:userId/:id',
+    component: () => import('@/views/SharingCodeView.vue'),
     name: RouteNames.SHARING_CODE,
+    beforeEnter: [existCodeItem],
   },
 ];
 

@@ -11,14 +11,12 @@ export const useShareCode = () => {
     }
 
     router.push({
-      name: RouteNames.SHARING_CODE,
-      params: {
-        code: props.code,
-      },
+      name: RouteNames.SHARING_ANON_CODE,
       query: {
         language: props.language,
         theme: props.theme,
         description: props.description,
+        code: props.code,
       },
     });
   };

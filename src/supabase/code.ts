@@ -1,5 +1,6 @@
 import { supabase } from '@/supabase/client';
 import { Code } from '@/types/code';
+import { Tables } from '@/types/supabase';
 
 const table = 'codes';
 
@@ -32,7 +33,7 @@ export const getCodeById = async (props: {
   codeId: number;
   userId: string;
 }) => {
-  const response: { data: any; error: string } = {
+  const response: { data: Tables<'codes'> | null; error: string } = {
     data: null,
     error: '',
   };
@@ -43,7 +44,7 @@ export const getCodeById = async (props: {
       .select('*')
       .eq('id', props.codeId)
       .eq('user_id', props.userId)
-      .single();
+      .single<Tables<'codes'>>();
 
     if (error) {
       if (error.code === 'PGRST116') {

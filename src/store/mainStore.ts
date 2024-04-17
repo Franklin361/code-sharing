@@ -1,7 +1,9 @@
 import { languagesList, themesList } from '@/config';
-import { Code } from '@/types/code';
+import { Tables } from '@/types/supabase';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+
+type Code = Tables<'codes'>;
 
 export const useCodeStore = defineStore('code-store', () => {
   const language = ref(languagesList[0].value);

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import MenuOptionsCard from '@/components/list-code/MenuOptionsCard.vue';
 import Button from '@/components/ui/button/Button.vue';
-import { Code } from '@/types/code';
+import { Tables } from '@/types/supabase';
 import { Icon } from '@iconify/vue';
 
 interface Props{
-  item: Code
+  item: Tables<'codes'>
 }
 
 defineProps<Props>();

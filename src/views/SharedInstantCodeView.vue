@@ -11,10 +11,10 @@ import Description from '@/components/shared-code/Description.vue';
     />
 
     <EditorCodeDisabled
-      v-if="$route.params.code && $route.query.language && $route.query.theme"
+      v-if="$route.query.code && $route.query.language && $route.query.theme"
       :language="($route.query.language as string)"
       :theme="($route.query.theme as string)"
-      :code="($route.params.code as string)"
+      :code="($route.query.code as string)"
     />
   </main>
 </template>

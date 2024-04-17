@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Code } from '@/types/code';
+import { Tables } from '@/types/supabase';
 import ItemCode from './ItemCode.vue';
 
 interface Props{
-  codeList: Code[]
+  codeList: Tables<'codes'>[]
 }
 
 defineProps<Props>()

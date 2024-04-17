@@ -10,26 +10,36 @@ DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useShareCode } from '@/composables/useShareCode';
 import { RouteNames } from '@/router/main';
-import { Code } from '@/types/code';
+import { Tables } from '@/types/supabase';
 import { Icon } from '@iconify/vue';
 import { useRouter } from 'vue-router';
 import DeleteAlertDialog from './DeleteAlertDialog.vue';
 
 interface Props{
-  item: Code
+  item: Tables<'codes'>
 }
 
 const props = defineProps<Props>();
 
 const router = useRouter()
 
-const handleShare = useShareCode()
+const handleShareAnon = useShareCode()
 
 const handleGoToEditor = () => {
   router.push({
     name: RouteNames.EDIT_CODE,
     params: {
       id: props.item.id
+    }
+  })
+}
+
+const handleGoToSharing = () => {
+  router.push({
+    name: RouteNames.SHARING_CODE,
+    params: {
+      id: props.item.id,
+      userId: props.item.user_id
     }
   })
 }
@@ -45,13 +55,23 @@ const handleGoToEditor = () => {
       <DropdownMenuSeparator />
       <DropdownMenuItem
         class="flex justify-start gap-3 cursor-pointer"
-        @click="handleShare(item)"
+        @click="handleGoToSharing()"
       >
         <Icon
           icon="material-symbols-light:share-outline"
           class="size-5 text-foreground"
         />
         <span class="">Share code</span>
+      </DropdownMenuItem>
+      <DropdownMenuItem
+        class="flex justify-start gap-3 cursor-pointer"
+        @click="handleShareAnon(item)"
+      >
+        <Icon
+          icon="mdi:anonymous"
+          class="size-5 text-foreground"
+        />
+        <span class="">Share as anon</span>
       </DropdownMenuItem>
       <DropdownMenuItem
         class="flex justify-start gap-3 cursor-pointer"
