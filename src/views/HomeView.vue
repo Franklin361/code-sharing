@@ -6,7 +6,7 @@ import ListCode from '@/components/list-code/ListCode.vue';
 import NoItems from '@/components/list-code/NoItems.vue';
 import { useAuthStore } from '@/store/authStore';
 import { getAllCodesByUser } from '@/supabase/code';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const loading = ref(true)
 
@@ -14,7 +14,7 @@ const useCode = useCodeStore();
 const useAuth = useAuthStore();
 
 const initialize = async() => {
-
+  loading.value = true
   if(useAuth.user?.id && useCode.codeList === null){
     console.log('initialize code list')
     const { data, error } = await getAllCodesByUser(useAuth.user.id)
@@ -22,7 +22,14 @@ const initialize = async() => {
   }
   loading.value = false
 }
-initialize()
+
+watch(
+  ()=> useAuth.user,
+  () => {
+    initialize()
+  },
+  { immediate: true }
+)
 </script>
 
 <template>

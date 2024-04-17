@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Button from '@/components/ui/button/Button.vue';
 import useAuth from '@/composables/useAuth.ts';
 import { RouteNames } from '@/router/main';
+import { Icon } from '@iconify/vue';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -13,7 +14,7 @@ const { loading, session, handleSignOut } = useAuth()
 const route = useRoute()
 
 const titles = {
-  [RouteNames.HOME]: '🎉',
+  [RouteNames.HOME]: 'Your codes 🎉',
   [RouteNames.EDITOR]: 'Editor ✏️',
   [RouteNames.SHARING_CODE]: 'Code shared 🔗',
   [RouteNames.EDIT_CODE]: 'Update code 📝',
@@ -23,16 +24,35 @@ const titleSelected = computed(() => route.name && (titles as any)[route.name.to
 </script>
 
 <template>
+  <span
+    v-if="!!titleSelected"
+    class="font-bold  opacity-80 fixed bottom-5 left-5 block"
+    >{{ titleSelected }}</span
+  >
+
   <nav
     class="flex items-center gap-10 justify-between border-b p-3 px-5 shadow-xl shadow-black/20 dark:bg-gradient-to-l from-purple-700/70 to-violet-900/70 sticky top-0 left-0 z-30 backdrop-blur-xl"
   >
     <span class=" flex-1">Note Code</span>
 
-    <span
-      v-if="!!titleSelected"
-      class="font-bold  text-xl opacity-80 flex-1 text-center"
-      >{{ titleSelected }}</span
-    >
+    <div class="flex gap-3">
+      <router-link :to="{name: RouteNames.HOME}">
+        <Button class="size-8 grid place-items-center ">
+          <Icon
+            icon="lucide:home"
+            class="size-5"
+          />
+        </Button>
+      </router-link>
+      <router-link :to="{name: RouteNames.EDITOR}">
+        <Button class="size-8 grid place-items-center ">
+          <Icon
+            icon="gala:editor"
+            class="size-5"
+          />
+        </Button>
+      </router-link>
+    </div>
 
     <div class="flex items-center gap-5 justify-end  flex-1">
       <div
