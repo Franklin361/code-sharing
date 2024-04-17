@@ -37,7 +37,7 @@ const titleSelected = computed(() => route.name && (titles as any)[route.name.to
 
     <div class="flex gap-3">
       <router-link :to="{name: RouteNames.HOME}">
-        <Button class="size-8 grid place-items-center ">
+        <Button class="size-9 grid place-items-center ">
           <Icon
             icon="lucide:home"
             class="size-5"
@@ -45,7 +45,7 @@ const titleSelected = computed(() => route.name && (titles as any)[route.name.to
         </Button>
       </router-link>
       <router-link :to="{name: RouteNames.EDITOR}">
-        <Button class="size-8 grid place-items-center ">
+        <Button class="size-9 grid place-items-center ">
           <Icon
             icon="gala:editor"
             class="size-5"
