@@ -1,12 +1,17 @@
+import { RouteNames } from '@/router/main';
 import { useAuthStore } from '@/store/authStore';
+import { useCodeStore } from '@/store/mainStore';
 import { supabase } from '@/supabase/client';
 import { Session } from '@supabase/supabase-js';
 import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 const useAuth = () => {
   const loading = ref(true);
   const session = ref<Session | null>(null);
   const useAuth = useAuthStore();
+  const useCode = useCodeStore();
+  const router = useRouter();
 
   onMounted(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -29,9 +34,17 @@ const useAuth = () => {
 
   const handleSignOut = async () => {
     loading.value = true;
-    await supabase.auth.signOut();
-    useAuth.clearUser();
-    loading.value = false;
+    try {
+      await supabase.auth.signOut();
+      console.log('loggout');
+      useAuth.clearUser();
+      useCode.clearCodeStore();
+      router.push({ name: RouteNames.HOME });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      loading.value = false;
+    }
   };
 
   const handleSignIn = async () => {

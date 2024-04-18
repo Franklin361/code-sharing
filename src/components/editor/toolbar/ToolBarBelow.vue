@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AuthDialog from '@/components/auth/AuthDialog.vue';
 import DeleteAlertDialog from '@/components/list-code/DeleteAlertDialog.vue';
 import Button from '@/components/ui/button/Button.vue';
 import Input from '@/components/ui/input/Input.vue';
@@ -28,6 +29,7 @@ const handleShare = useShareCode()
 const loading = ref(false)
 
 const handleSave = async() => {
+
   loading.value = true
 
   try {
@@ -128,6 +130,7 @@ const handleUpdateCode =  async(  ) => {
         class="flex justify-center md:gap-3 gap-1 items-center disabled:opacity-60 md:px-3 md:py-2 px-2   w-fit h-fit"
         :disabled="store.code.length < 5"
         @click="handleSave"
+        v-if="useAuth.user"
       >
         <Icon
           icon="material-symbols-light:save-outline-rounded"
@@ -144,6 +147,9 @@ const handleUpdateCode =  async(  ) => {
           >Edit</span
         >
       </Button>
+
+      <AuthDialog v-else />
+
       <Button
         class="flex justify-center md:gap-3 gap-1 items-center disabled:opacity-60 md:px-3 md:py-2 px-2  w-fit h-fit"
         :disabled="store.code.length < 5"

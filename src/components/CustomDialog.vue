@@ -28,7 +28,7 @@ const onClose = (shouldCloseModal: boolean) => {
     <AlertDialogTrigger>
       <slot name="dialog-trigger"></slot>
     </AlertDialogTrigger>
-    <AlertDialogContent>
+    <AlertDialogContent class="md:max-w-lg max-w-[290px]">
       <AlertDialogHeader>
         <AlertDialogTitle>
           <slot name="dialog-title"></slot>
@@ -37,7 +37,7 @@ const onClose = (shouldCloseModal: boolean) => {
           <slot name="dialog-description"></slot>
         </AlertDialogDescription>
       </AlertDialogHeader>
-      <AlertDialogFooter>
+      <AlertDialogFooter class="mt-5">
         <slot
           name="dialog-footer"
           :onClose="onClose"

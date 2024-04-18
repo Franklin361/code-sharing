@@ -40,6 +40,12 @@ export const useCodeStore = defineStore('code-store', () => {
     description.value = '';
   };
 
+  const clearCodeStore = () => {
+    console.log('clear');
+    codeList.value = null;
+    resetCodeStore();
+  };
+
   const deleteItemFromList = (id: number) => {
     if (codeList.value) {
       codeList.value = codeList.value.filter((code) => code.id !== id);
@@ -77,5 +83,6 @@ export const useCodeStore = defineStore('code-store', () => {
     onUpdateCode,
     onUpdateDescription,
     initializeCodeList,
+    clearCodeStore,
   };
 });
