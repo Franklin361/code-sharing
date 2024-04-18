@@ -25,7 +25,7 @@ onBeforeRouteLeave(() => {
 </script>
 
 <template>
-  <main class="container mx-auto p-5">
+  <main class="container mx-auto px-5 my-20">
     <ToolBar
       :default-language="store.language"
       :default-theme="store.theme"

@@ -65,8 +65,10 @@ const handleReady = (payload: {
 }
 
 .cm-disabled .cm-content {
-  font-size: 1.1rem;
+  @apply lg:text-[1.1rem] md:text-base text-sm
 }
+
+
 
 .cm-disabled .cm-scroller {
   min-height: auto;

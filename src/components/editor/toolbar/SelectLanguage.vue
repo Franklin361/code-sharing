@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { Check, ChevronsUpDown } from 'lucide-vue-next'
+import { ref } from 'vue'
 
-import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
+Command,
+CommandEmpty,
+CommandGroup,
+CommandInput,
+CommandItem,
+CommandList,
 } from '@/components/ui/command'
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+Popover,
+PopoverContent,
+PopoverTrigger,
 } from '@/components/ui/popover'
+import { cn } from '@/lib/utils'
 
 interface Props {
   list: { value: string, label:string }[],
@@ -40,7 +40,7 @@ const value = ref(props.defaultValue)
         variant="outline"
         role="combobox"
         :aria-expanded="open"
-        class="w-[200px] justify-between hover:border-primary"
+        class="md:w-[200px] w-full justify-between hover:border-primary"
         :class="open ? 'border-primary' : ''"
       >
         {{ value
@@ -49,7 +49,7 @@ const value = ref(props.defaultValue)
         <ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />
       </Button>
     </PopoverTrigger>
-    <PopoverContent class="w-[200px] p-0">
+    <PopoverContent class="md:w-[200px] w-full p-0">
       <Command>
         <CommandInput
           class="h-9"

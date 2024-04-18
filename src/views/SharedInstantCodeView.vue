@@ -4,7 +4,7 @@ import Description from '@/components/shared-code/Description.vue';
 </script>
 
 <template>
-  <main class="px-8 max-w-5xl mx-auto">
+  <main class="px-5 max-w-5xl mx-auto my-20 mt-28">
     <Description
       v-if="$route.query.description"
       :description="($route.query.description as string)"

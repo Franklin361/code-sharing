@@ -101,7 +101,7 @@ const handleUpdateCode =  async(  ) => {
 
 <template>
   <div
-    class="border p-2 px-5 flex items-center justify-between gap-10 rounded-md my-5 h-[10vh] bg-secondary sticky bottom-0 left-0 border-white/30"
+    class="border p-2 md:px-5 px-2 flex items-center justify-between md:gap-10 gap-3 rounded-md my-5 md:h-[10vh] bg-secondary sticky bottom-0 left-0 border-white/30 md:flex-row flex-col"
   >
     <div class="relative w-full max-w-sm items-center">
       <Input
@@ -121,29 +121,42 @@ const handleUpdateCode =  async(  ) => {
       </span>
     </div>
 
-    <div class="flex items-center justify-around gap-5">
+    <div
+      class="flex items-center md:w-fit w-full justify-between md:gap-5 gap-0"
+    >
       <Button
-        class="flex justify-center gap-2 items-center disabled:opacity-60"
+        class="flex justify-center md:gap-3 gap-1 items-center disabled:opacity-60 md:px-3 md:py-2 px-2   w-fit h-fit"
         :disabled="store.code.length < 5"
         @click="handleSave"
       >
         <Icon
           icon="material-symbols-light:save-outline-rounded"
-          class="size-6"
+          class="md:size-6 size-5"
         />
-        <span v-if="!idCodeToEdit">Save</span>
-        <span v-else>Edit</span>
+        <span
+          class="md:text-base text-sm"
+          v-if="!idCodeToEdit"
+          >Save</span
+        >
+        <span
+          class="md:text-base text-sm"
+          v-else
+          >Edit</span
+        >
       </Button>
       <Button
-        class="flex justify-center gap-2 items-center disabled:opacity-60"
+        class="flex justify-center md:gap-3 gap-1 items-center disabled:opacity-60 md:px-3 md:py-2 px-2  w-fit h-fit"
         :disabled="store.code.length < 5"
         @click="handleShare({ ...store })"
       >
         <Icon
           icon="material-symbols-light:share-outline"
-          class="size-6"
+          class="md:size-6 size-5"
         />
-        Instant sharing
+        <span class="md:text-base text-sm md:block hidden"
+          >Instant sharing</span
+        >
+        <span class="md:text-base text-sm md:hidden block ">Share</span>
       </Button>
 
       <DeleteAlertDialog

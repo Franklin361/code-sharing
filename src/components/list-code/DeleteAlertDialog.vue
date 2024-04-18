@@ -71,13 +71,14 @@ const handleDelete = async (onCloseDialog: (shouldCloseModal: boolean) => void) 
     <template #dialog-trigger>
       <Button
         variant="destructive"
-        class="flex justify-start gap-3 cursor-pointer px-0 pl-2 pr-4 size-fit"
+        class="flex justify-start md:gap-3 gap-1 cursor-pointer md:pl-2 md:pr-4 px-2 size-fit w-[160px]"
       >
         <Icon
           icon="material-symbols-light:delete-outline"
-          class="size-5 text-white"
+          class="md:size-6 size-5 text-white"
         />
-        <span class="">Delete code</span>
+        <span class="md:block hidden md:text-base text-sm">Delete code</span>
+        <span class="md:hidden block md:text-base text-sm">Delete</span>
       </Button>
     </template>
     <template #dialog-title>

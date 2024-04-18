@@ -29,7 +29,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="px-8 max-w-5xl mx-auto py-10">
+  <main class="px-5 max-w-5xl mx-auto py-10 my-20 mt-10">
     <LoadingView
       label="Loading code..."
       v-if="loading"

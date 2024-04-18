@@ -35,9 +35,12 @@ const titleSelected = computed(() => route.name && (titles as any)[route.name.to
   >
     <span class=" flex-1">Note Code</span>
 
-    <div class="flex gap-3">
+    <div
+      class="flex gap-3 md:static fixed top-16 md:w-fit w-full justify-center left-0 md:bg-transparent bg-background py-3"
+    >
       <router-link :to="{name: RouteNames.HOME}">
-        <Button class="size-9 grid place-items-center ">
+        <Button class="size-fit flex justify-center items-center gap-2">
+          <span class="">Home</span>
           <Icon
             icon="lucide:home"
             class="size-5"
@@ -45,7 +48,8 @@ const titleSelected = computed(() => route.name && (titles as any)[route.name.to
         </Button>
       </router-link>
       <router-link :to="{name: RouteNames.EDITOR}">
-        <Button class="size-9 grid place-items-center ">
+        <Button class="size-fit flex justify-center items-center gap-2">
+          <span class="">Editor</span>
           <Icon
             icon="gala:editor"
             class="size-5"
@@ -78,7 +82,7 @@ const titleSelected = computed(() => route.name && (titles as any)[route.name.to
               >
             </Avatar>
             <span
-              class="text-sm font-semibold"
+              class="text-sm font-semibold md:block hidden"
               >{{ session.user.user_metadata.user_name }}</span
             >
           </div>
@@ -86,8 +90,14 @@ const titleSelected = computed(() => route.name && (titles as any)[route.name.to
           <Button
             variant="destructive"
             @click="handleSignOut"
-            >Sign out</Button
+            class="md:size-fit md:px-4 md:py-2 size-10 p-0 flex justify-center items-center gap-2"
           >
+            <span class="md:block hidden">Sign out</span>
+            <Icon
+              icon="mdi:logout"
+              class="size-5"
+            />
+          </Button>
         </div>
       </template>
 

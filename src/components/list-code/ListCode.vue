@@ -13,8 +13,9 @@ defineProps<Props>()
   <section
     v-if="codeList && codeList.length > 0"
     :class="[
-        'grid grid-cols-4',
+        'grid grid-cols-1',
         'gap-8 max-w-5xl mx-auto my-20',
+        'md:grid-cols-3 lg:grid-cols-4'
       ]"
   >
     <ItemCode

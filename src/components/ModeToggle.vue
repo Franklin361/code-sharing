@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useColorMode } from '@vueuse/core'
-import { Icon } from '@iconify/vue'
-import { Button } from '@/components/ui/button'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Icon } from '@iconify/vue';
+import { useColorMode } from '@vueuse/core';
 
 const mode = useColorMode()
 </script>
@@ -10,7 +10,10 @@ const mode = useColorMode()
 <template>
   <DropdownMenu>
     <DropdownMenuTrigger as-child>
-      <Button variant="outline">
+      <Button
+        variant="outline"
+        class="size-10 p-0 flex justify-center items-center"
+      >
         <Icon
           icon="radix-icons:moon"
           class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
