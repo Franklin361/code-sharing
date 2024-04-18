@@ -40,6 +40,10 @@ const routes: RouteRecordRaw[] = [
     name: RouteNames.SHARING_CODE,
     beforeEnter: [existCodeItem],
   },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: { name: RouteNames.HOME, replace: true },
+  },
 ];
 
 export const router = createRouter({
